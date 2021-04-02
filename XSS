@@ -1,0 +1,2 @@
+There is a reflected cross site scripting vulnerability when creating a new paste. Use the following payload as the title or message for your new paste:
+	"><img src="x" onerror=alert(1)></img>
