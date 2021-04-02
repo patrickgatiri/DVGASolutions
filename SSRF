@@ -2,7 +2,7 @@ DVGA has a Server Side Request Forgery - SSRF - vulnerability in its "Import Pas
 This feature allows you to request for a paste from a remote URL.
 However, there is no limit to the scope or range of URLs that should be considered valid.
 Any URL entered by the user will result in an outbound HTTP request by the server.
-As such, you can use this feature to ping the internal network of the server or ping a remote machine.
+As such, you can use this feature to ping the server itself, the internal network of the server or a remote machine.
 
 The following GraphQL mutation retrieve the source code for the root path of the GraphQL server:
 	{
