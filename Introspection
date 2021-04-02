@@ -1,0 +1,18 @@
+The GraphQL server allows introspection queries. 
+This means that a potential attacker can gain more information about the underlying GraphQL schema by simply issuing introspection queries.
+
+To retrieve a list of all the GraphQL types listed in the schema, send a POST request to the /graphql endpoint with the following JSON data:
+	{ 
+		"query":"query listalltypes { __schema { types { name, kind, fields { name, args { name, defaultValue } } } } }"
+	}
+
+To get a list of all the queries supported by the GraphQL server:
+	{
+		"query":"query listallqueries { __schema { queryType { fields { name } } } }"
+	}
+
+To get a list of all the mutations supported by the GraphQL server:
+	{
+		"query":"query listallmutations { __schema { mutationType { fields { name } } } }"
+	}
+
