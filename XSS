@@ -1,4 +1,7 @@
-There is a stored cross site scripting vulnerability when creating a new paste. Use the following payload as the title or message for your new paste:
+There is a stored cross site scripting vulnerability when creating a new paste. 
+Use the following payload as the title or message for your new paste:
 	"><img src="x" onerror=alert(1)></img>
 
-When uploading a paste, you could upload a HTML file that contains the same malicious payload. The contents of an uploaded file are rendered directly into the HTML surce, hereby allowing for a stored XSS vulnerability. Upload the POC file 'stored_xss_upload_paste.html' and watch as the alert box pops up when you view your private pastes.
+When uploading a paste, you could upload a HTML file that contains the same malicious payload. 
+The contents of an uploaded file are rendered directly into the HTML surce, hereby allowing for a stored XSS vulnerability. 
+Upload the POC file 'stored_xss_upload_paste.html' and watch as the alert box pops up when you view your private pastes.
