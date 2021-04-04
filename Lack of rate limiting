@@ -1,0 +1,14 @@
+DVGA has no rate limiting measures.
+As such, there are no restrictions as to the number of requests that can be processed from a single user within a specified time period.
+This makes the server vulnerable to brute force attacks.
+
+To provide a POC, I will use the "systemDiagnostics" query.
+This query allows the user to issue system commands to the server, provided they provide a valid username and password.
+	{
+		"query":"query systemDiagnostics { systemDiagnostics (username:\"username\" ,password:\"password\", cmd:\"ls\") }"
+	}
+
+Since we are not aware of the credentials, we can bruteforce the username and password fields until we find the correct match.
+Using Kalilinux' rockyou.txt wordlist, we find the correct credentials are as follows:
+	username : admin
+	password : letmein
