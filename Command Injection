@@ -1,0 +1,16 @@
+DVGA has an "Import Paste" feature that allows you to load a paste from a URL.
+When doing this, DVGA seems to be using a Linux OS command such as curl to retrieve the remote paste.
+The URL user input is passed as the argument to the command directly without any sanitization:
+	curl <<URL user input>>
+
+We can leverage this misconfiguration to execute system commands on the server.
+Using special characters such as ";", "&", "&&", "||",  "|", we can append extra commands.
+This will allow us to retrieve information from the server or issue commands directly to the server.
+
+Using the payload "; cat /etc/passwd", we can get detailed information about users on the system.
+This payload will be rendered on the server as follows:
+	curl; cat /etc/passwd
+
+The payload "; whoami" enables us to know that the web server is running as root:
+	curl; whoami
+
