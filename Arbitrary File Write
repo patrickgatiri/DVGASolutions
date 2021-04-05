@@ -1,0 +1,15 @@
+DVGA offers an "Upload Paste" feature that allows the user to upload a local file onto the server.
+By default, this file is stored in the "pastes/" directory in the root of the web server, under its original file name.
+This means that if you upload a file named "file.txt", it will be stored under:
+	./pastes/file.txt
+
+The server, however, does not validate or verify the filename.
+We can leverage this behaviour to write files to any location on the web server's file system.
+Suppose we upload a file with the name "../../../../../tmp/file.txt", this file will be stored under:
+	./pastes/../../../../../tmp/file.txt
+which is essentially:
+	/tmp/file.txt
+
+This vulnerability can also be utilized to overwrite critical files on the server.
+Uploading a file with the name "../../../../../etc/passwd" overwrites the /etc/passwd file on the server:
+	./pastes/../../../../../etc/passwd	===>	/etc/passwd
