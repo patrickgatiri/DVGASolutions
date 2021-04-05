@@ -12,3 +12,5 @@ Since we are not aware of the credentials, we can bruteforce the username and pa
 Using Kalilinux' rockyou.txt wordlist, we find the correct credentials are as follows:
 	username : admin
 	password : letmein
+
+With the correct credentials obtained, we can successfully authenticate to the server and issue commands directly to the system.
