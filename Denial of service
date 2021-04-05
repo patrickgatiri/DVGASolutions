@@ -44,4 +44,6 @@ Consider the following query:
 	}
 
 This query contains several layers of the same fields. These layers can continuously be nested, causing them to occupy server resources for an even longer time.
+If the nested layers are many, and multiple such queries are batched together into one request, the server could be overwhelmed.
+This would result in a denial of service for other users of the system.
 
